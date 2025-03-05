@@ -26,7 +26,7 @@ const Products = () => {
     }, []); 
 
     return (
-        <div className="w-[90%] md:w-[80%] mx-auto my-12">
+        <div className="w-[90%] md:w-[90%] mx-auto my-12">
             <h2 className="text-3xl font-bold text-center mb-8">Products</h2>
             {loading ? ( 
                 <h1 className="text-center text-xl font-semibold">Loading...</h1>

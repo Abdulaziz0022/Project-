@@ -1,22 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
     <header className="text-gray-600 body-font shadow-md bg-white">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-around">
+
         <Link to="/" className="flex title-font font-medium items-center text-gray-900">
           <span className="ml-3 text-xl font-bold">Uzum Market</span>
         </Link>
 
         <nav className="flex flex-wrap items-center text-base space-x-6">
-          <Link to="/" className="hover:text-gray-900">Home</Link>
-          <Link to="/shop" className="hover:text-gray-900">Shop</Link>
-          <Link to="/categories" className="hover:text-gray-900">Categories</Link>
-          <Link to="/contact" className="hover:text-gray-900">Contact</Link>
+          <Link to="/" className={`${location.pathname === "/" ? "text-blue-800 font-bold" : "hover:text-gray-900"}`}>
+            Home
+          </Link>
+          <Link to="/shop" className={`${location.pathname === "/shop" ? "text-blue-800 font-bold" : "hover:text-gray-900"}`}>
+            Shop
+          </Link>
+          <Link to="/categories" className={`${location.pathname === "/categories" ? "text-blue-800 font-bold" : "hover:text-gray-900"}`}>
+            Categories
+          </Link>
+          <Link to="/contact" className={`${location.pathname === "/contact" ? "text-blue-800 font-bold" : "hover:text-gray-900"}`}>
+            Contact
+          </Link>
         </nav>
-
         <div className="flex items-center space-x-4">
-          <button className="flex items-center bg-gray-100 py-2 px-4 rounded-md hover:bg-gray-200">
+          <button className="flex items-center bg-gray-100 py-2 px-4 rounded-md hover:bg-gray-200" aria-label="View Cart">
             Cart
             <svg
               fill="none"

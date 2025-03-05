@@ -31,7 +31,7 @@ const ProductInfo = () => {
         }
     }, [id]);
 
-    if (loading) return <h1 className="text-center text-xl font-semibold">Loading...</h1>;
+    if (loading) return <h1 className="text-center text-xl font-semibold mb-[40px]">Loading...</h1>;
     if (error) return <p className="text-red-500">{error}</p>;
 
     return (
@@ -49,7 +49,7 @@ const ProductInfo = () => {
                 <p className="text-lg font-semibold text-indigo-600">Price: ${product.price}</p>
                 <p>Category: {product.category?.replace(/^./, (c) => c.toUpperCase())}</p>
                 <button 
-                    className="mt-5 w-full md:w-auto px-6 py-3 bg-indigo-5~00 text-white font-semibold rounded-lg shadow-md active:bg-indigo-800 transition duration-300"
+                    className="mt-5 w-full md:w-auto px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-md active:bg-indigo-800 transition duration-300"
                 >
                     Buy Now
                 </button>

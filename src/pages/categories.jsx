@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../navfoot/navbar";
 import Footer from "../navfoot/footer";
+import { CartContext } from "../assets/cart";
 
 const Products = () => {
     const [data, setData] = useState([]);
@@ -11,6 +12,8 @@ const Products = () => {
     const [categories, setCategories] = useState([]);
     const [pages, setPages] = useState([]);
     const [skip, setSkip] = useState(1);
+
+    const {pushCard} = useContext(CartContext)
 
     const getProducts = async () => {
         setLoading(true);
@@ -131,50 +134,52 @@ const Products = () => {
                                 </ul>
                             </div>
                         </div>
-
                         <div className="col-span-1 md:col-span-3">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {data.length > 0 ? (
-                                    data.map((product) => (
-                                        <div
-                                            key={product.id}
-                                            className="shadow-lg border border-gray-200 rounded-lg overflow-hidden p-5 bg-white hover:shadow-xl transition duration-300"
-                                        >
-                                            <div className="w-full h-48">
-                                                <img
-                                                    src={product.thumbnail}
-                                                    alt={product.title}
-                                                    className="w-full h-full object-cover rounded-lg"
-                                                />
-                                            </div>
-                                            <div className="mt-4">
-                                                <Link
-                                                    to={`/product-info/${product.id}`}
-                                                    className="text-lg font-semibold hover:text-indigo-600 transition"
-                                                >
-                                                    {product.title}
-                                                </Link>
-                                                <p className="text-gray-600 font-medium">${product.price}</p>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <h1 className="text-center text-xl font-semibold col-span-full">
-                                        No products found.
-                                    </h1>
-                                )}
-                            </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  {data.length > 0 ? (
+   data.map((product) => (
+    <div
+      key={product.id}
+      className="shadow-md border border-gray-300 rounded-lg overflow-hidden p-5 bg-white hover:shadow-xl transition duration-300 flex flex-col h-[380px]"
+    >
+      <div className="w-full h-52">
+        <img
+          src={product.thumbnail}
+          alt={product.title}
+          className="w-full h-full object-cover rounded-md"
+        />
+      </div>
 
-                            <div>
-                                {/* {pages > 0? 
-                                <>{
-                                    console.log(Math.ceil(pages/20))
-                                }
-                                </> : <></>
-                                } */}
+      <div className="mt-4 flex flex-col flex-grow">
+        <Link
+          to={`/product-info/${product.id}`}
+          className="text-lg font-semibold hover:text-indigo-600 transition line-clamp-2"
+        >
+          {product.title}
+        </Link>
+        <p className="text-gray-700 font-medium text-lg">${product.price}</p>
+  
+        <div className="mt-[20px]">
+          <button
+            className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg active:bg-indigo-700 transition"
+            onClick={() => pushCard(product)}
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+  ))
+  
+  ) : (
+    <h1 className="text-center text-xl font-semibold col-span-full">
+      No products found.
+    </h1>
+  )}
+</div>
+                          <div>
                             {
                                 pages?.map ((item) => {
-                                    console.log(item);
                                     return <button 
                                     className={ `border py-1 px-3 gap-5 mt-10 ${skip == item && "bg-amber-600"}`}
                                     onClick={()=>{
